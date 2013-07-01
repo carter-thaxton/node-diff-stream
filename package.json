@@ -1,0 +1,21 @@
+{
+  "name": "diff-stream",
+  "version": "0.0.1",
+  "description": "Compare the contents of two object streams, and produce a new stream consisting of the differences",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/*.js"
+  },
+  "dependencies": {
+    "through": "~2.3.4"
+  },
+  "devDependencies": {
+    "read-stream": "~2.1.1"
+  },
+  "keywords": [
+    "diff",
+    "stream"
+  ],
+  "author": "Carter Thaxton",
+  "license": "BSD"
+}
