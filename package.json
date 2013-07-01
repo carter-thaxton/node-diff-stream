@@ -16,6 +16,11 @@
     "diff",
     "stream"
   ],
-  "author": "Carter Thaxton",
-  "license": "BSD"
+  "author": "Carter Thaxton <carter.thaxton@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carter-thaxton/node-diff-stream.git"
+  },
+  "homepage": "http://github.com/carter-thaxton/node-diff-stream"
 }

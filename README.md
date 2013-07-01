@@ -20,7 +20,7 @@ Example
 
   var fromArray = require('read-stream').array;
   var stream1 = fromArray([{id: 1, name: 'albert'}, {id: 2, name: 'bob'}, {id: 3, name: 'cathy'}]);
-  var stream2 = fromArray([{id: 1, name: 'albert'}, {id: 2, name: 'joe'}, {id: 4, name: 'thomas'}]);
+  var stream2 = fromArray([{id: 1, name: 'albert'}, {id: 2, name: 'joe'}, {id: 4, name: 'thomas'}, {id: 5, name: 'xavier'}]);
 
   var diff = diffOrderedStream(stream1, stream2, function(obj1, obj2) {
     if (obj1.id < obj2.id)
@@ -42,4 +42,5 @@ This would produce a stream consisting of tuples, like so:
   [{id: 2, name: 'bob'}, {id: 2, name: 'joe'}]
   [{id: 3, name: 'cathy'}, null]
   [null, {id: 4, name: 'thomas'}]
+  [null, {id: 5, name: 'xavier'}]
 ```
