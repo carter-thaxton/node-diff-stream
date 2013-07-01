@@ -22,7 +22,7 @@ Example
   var stream1 = fromArray([{id: 1, name: 'albert'}, {id: 2, name: 'bob'}, {id: 3, name: 'cathy'}]);
   var stream2 = fromArray([{id: 1, name: 'albert'}, {id: 2, name: 'joe'}, {id: 4, name: 'thomas'}, {id: 5, name: 'xavier'}]);
 
-  var diff = diffOrderedStream(stream1, stream2, function(obj1, obj2) {
+  var diff = diffStream(stream1, stream2, function(obj1, obj2) {
     if (obj1.id < obj2.id)
       this.left();
     else if (obj1.id > obj2.id)
