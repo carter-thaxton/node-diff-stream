@@ -1,7 +1,17 @@
 var through = require('through');
+var deepEqual = require('deep-equal');
 
 module.exports = function(a, b, compare) {
     var self = {};
+
+    var compareFcn;
+    if (compare instanceof Function) {
+      compareFcn = compare;
+    } else if (compare) {
+      compareFcn = compareBy(compare);
+    } else {
+      compareFcn = compareBy('id');
+    }
 
     var sa = a.pipe(through());
     var sb = b.pipe(through());
@@ -51,7 +61,7 @@ module.exports = function(a, b, compare) {
 
     function handlePair () {
         if (obja && objb)
-            compare.call(self, obja, objb);
+            compareFcn.call(self, obja, objb);
         else if (obja)
             self.left();
         else if (objb)
@@ -82,7 +92,7 @@ module.exports = function(a, b, compare) {
         sb.resume();
     };
 
-    self.notEqual = this.both = function() {
+    self.notEqual = this.both = function(obj) {
         output.queue([ obja, objb ]);
         obja = null;
         objb = null;
@@ -93,3 +103,16 @@ module.exports = function(a, b, compare) {
 
     return output;
 };
+
+function compareBy(field) {
+  return function(a, b) {
+    if (a[field] < b[field])
+      this.left();
+    else if (a[field] > b[field])
+      this.right();
+    else if (deepEqual(a, b))
+      this.equal();
+    else
+      this.notEqual();
+  };
+}
