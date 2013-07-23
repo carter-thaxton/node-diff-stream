@@ -52,7 +52,7 @@ The optional `compare` parameter may be a string key, used to determine the orde
       this.left();
     else if (obj1.id > obj2.id)
       this.right();
-    else if (obj1.id == obj2.name && obj1.name == obj2.name)
+    else if (obj1.id == obj2.id && obj1.name == obj2.name)
       this.equal();
     else
       this.notEqual();
