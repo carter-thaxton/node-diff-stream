@@ -1,6 +1,6 @@
 {
   "name": "diff-stream",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Compare the contents of two object streams, and produce a new stream consisting of the differences",
   "main": "index.js",
   "scripts": {
