@@ -22,8 +22,12 @@ module.exports = function(a, b, compare) {
     var closeda = false;
     var closedb = false;
 
+    var toResume = null;
+
     sa.pipe(through(inputa, donea));
     sb.pipe(through(inputb, doneb));
+
+    output.on('resume', resume);
 
     function inputa(buf) {
         obja = buf;
@@ -59,6 +63,20 @@ module.exports = function(a, b, compare) {
             output.queue(null);
     }
 
+    function resume(streams) {
+        if (streams)
+            toResume = streams;
+
+        if (!output.paused) {
+            toResume.forEach(function(stream) {
+                process.nextTick(function() {
+                    stream.resume();
+                });
+            });
+            toResume = null;
+        }
+    }
+
     function handlePair () {
         if (obja && objb)
             compareFcn.call(self, obja, objb);
@@ -74,22 +92,21 @@ module.exports = function(a, b, compare) {
         output.queue([ obja, null ]);
         obja = null;
 
-        sa.resume();
+        resume([sa]);
     };
 
     self.right = function() {
         output.queue([ null, objb ]);
         objb = null;
 
-        sb.resume();
+        resume([sb]);
     };
 
     self.equal = this.neither = function() {
         obja = null;
         objb = null;
 
-        sa.resume();
-        sb.resume();
+        resume([sa, sb]);
     };
 
     self.notEqual = this.both = function(obj) {
@@ -97,8 +114,7 @@ module.exports = function(a, b, compare) {
         obja = null;
         objb = null;
 
-        sa.resume();
-        sb.resume();
+        resume([sa, sb]);
     };
 
     return output;
