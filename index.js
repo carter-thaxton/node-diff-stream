@@ -69,7 +69,7 @@ module.exports = function(a, b, compare) {
 
         if (!output.paused) {
             toResume.forEach(function(stream) {
-                process.nextTick(function() {
+                setImmediate(function() {
                     stream.resume();
                 });
             });
