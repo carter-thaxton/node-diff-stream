@@ -44,7 +44,7 @@ module.exports = function(a, b, compare) {
         if (obja !== null || closeda)
             handlePair();
     }
-    
+
     function donea() {
         closeda = true;
 
@@ -102,14 +102,14 @@ module.exports = function(a, b, compare) {
         resume([sb]);
     };
 
-    self.equal = this.neither = function() {
+    self.equal = self.neither = function() {
         obja = null;
         objb = null;
 
         resume([sa, sb]);
     };
 
-    self.notEqual = this.both = function(obj) {
+    self.notEqual = self.both = function(obj) {
         output.queue([ obja, objb ]);
         obja = null;
         objb = null;
